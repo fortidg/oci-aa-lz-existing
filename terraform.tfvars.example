@@ -1,0 +1,17 @@
+// Change to your own variables
+tenancy_ocid     = "<OCI tenancy id>"
+compartment_ocid = "<OCI compartment id>"
+user_ocid        = "<OCI user id>"
+fingerprint      = "<Fingerprint>"
+private_key_path = "<Private key>"
+region           = "<region>"
+
+
+fgt_byol_flexvm_license_a = "<flex token1>"
+fgt_byol_flexvm_license_b = "<flex token2>"
+
+PREFIX = "<prefix>"
+
+management_subnet_id = <management subnet ocid>
+untrusted_subnet_id = <untrused subenet ocid>
+trusted_subnet_id = <trused subenet ocid>
