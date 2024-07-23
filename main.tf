@@ -17,7 +17,7 @@ resource "oci_core_vnic_attachment" "vnic_attach_trust_fgt_a" {
   display_name = "${var.PREFIX}-fgta-vnic-trusted"
 
   create_vnic_details {
-    subnet_id              = var.trusted_subnet_id
+    subnet_id              = var.indoor_subnet_id
     display_name           = "${var.PREFIX}-fgta-vnic-trusted"
     assign_public_ip       = false
     skip_source_dest_check = true
@@ -30,7 +30,7 @@ resource "oci_core_vnic_attachment" "vnic_attach_untrust_fgt_a" {
   display_name = "${var.PREFIX}-fgta-vnic-untrust"
 
   create_vnic_details {
-    subnet_id              = var.untrusted_subnet_id
+    subnet_id              = var.outdoor_subnet_id
     display_name           = "${var.PREFIX}-fgta-vnic-untrust"
     assign_public_ip       = false
     skip_source_dest_check = true
@@ -111,8 +111,8 @@ data "template_file" "custom_data_fgt_a" {
     port3_ip             = var.fgt_ipaddress_a["3"]
     port3_mask           = var.subnetmask["3"]
     management_gateway_ip = data.oci_core_subnet.mgmt_gateway.virtual_router_ip    
-    untrusted_gateway_ip = data.oci_core_subnet.untrust_gateway.virtual_router_ip
-    trusted_gateway_ip   = data.oci_core_subnet.trust_gateway.virtual_router_ip
+    untrusted_gateway_ip = data.oci_core_subnet.outdoor_gateway.virtual_router_ip
+    trusted_gateway_ip   = data.oci_core_subnet.indoor_gateway.virtual_router_ip
     vcn_cidr             = var.vcn
   }
 }
@@ -167,7 +167,7 @@ resource "oci_core_vnic_attachment" "vnic_attach_trusted_fgt_b" {
   display_name = "${var.PREFIX}-fgtb-vnic-trusted"
 
   create_vnic_details {
-    subnet_id              = var.trusted_subnet_id
+    subnet_id              = var.indoor_subnet_id
     display_name           = "${var.PREFIX}-fgtb-vnic-trusted"
     assign_public_ip       = false
     skip_source_dest_check = true
@@ -181,7 +181,7 @@ resource "oci_core_vnic_attachment" "vnic_attach_untrust_fgt_b" {
   display_name = "${var.PREFIX}-fgtb-vnic-untrust"
 
   create_vnic_details {
-    subnet_id              = var.untrusted_subnet_id
+    subnet_id              = var.outdoor_subnet_id
     display_name           = "${var.PREFIX}-fgtb-vnic-untrust"
     assign_public_ip       = false
     skip_source_dest_check = true
@@ -218,8 +218,8 @@ data "template_file" "custom_data_fgt_b" {
     port3_ip             = var.fgt_ipaddress_b["3"]
     port3_mask           = var.subnetmask["3"]
     management_gateway_ip = data.oci_core_subnet.mgmt_gateway.virtual_router_ip    
-    untrusted_gateway_ip = data.oci_core_subnet.untrust_gateway.virtual_router_ip
-    trusted_gateway_ip   = data.oci_core_subnet.trust_gateway.virtual_router_ip
+    untrusted_gateway_ip = data.oci_core_subnet.outdoor_gateway.virtual_router_ip
+    trusted_gateway_ip   = data.oci_core_subnet.indoor_gateway.virtual_router_ip
     vcn_cidr             = var.vcn
   }
 }
@@ -230,7 +230,7 @@ data "template_file" "custom_data_fgt_b" {
 resource "oci_network_load_balancer_network_load_balancer" "nlb_untrusted" {
   compartment_id = var.compartment_ocid
   display_name   = "${var.PREFIX}-nlb-untrusted"
-  subnet_id      = var.untrusted_subnet_id
+  subnet_id      = var.outdoor_subnet_id
 
   is_private                     = false
   is_preserve_source_destination = false
@@ -278,7 +278,7 @@ resource "oci_network_load_balancer_backend" "nlb_untrusted_backend_fgtb" {
 resource "oci_network_load_balancer_network_load_balancer" "nlb_trusted" {
   compartment_id = var.compartment_ocid
   display_name   = "${var.PREFIX}-nlb-trusted"
-  subnet_id      = var.trusted_subnet_id
+  subnet_id      = var.indoor_subnet_id
 
   is_private                     = true
   is_preserve_source_destination = true

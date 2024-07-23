@@ -70,14 +70,14 @@ variable "cert" {
 variable "fgt_byol_license_a" {
   // Change to your own path
   type    = string
-  default = "lic1.txt"
+  default = ""
 }
 
 // license file location for fgt b
 variable "fgt_byol_license_b" {
   // Change to your own path
   type    = string
-  default = "lic2.txt"
+  default = ""
 }
 
 // Flex-VM license token for fgt a
@@ -102,11 +102,11 @@ variable "management_subnet_id" {
   type    = string
 }
 
-variable "untrusted_subnet_id" {
+variable "outdoor_subnet_id" {
   type    = string
 }
 
-variable "trusted_subnet_id" {
+variable "indoor_subnet_id" {
   type    = string
 }
 

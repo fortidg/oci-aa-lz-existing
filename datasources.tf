@@ -34,7 +34,7 @@ data "oci_core_boot_volume_attachments" "block_attach_fgt_b" {
 
 data "oci_core_private_ips" "nlb_trusted_private_ip" {
     ip_address = oci_network_load_balancer_network_load_balancer.nlb_trusted.ip_addresses[0].ip_address
-    subnet_id = var.trusted_subnet_id
+    subnet_id = var.indoor_subnet_id
 }
 
 data "oci_network_load_balancer_network_load_balancer" "nlb_trusted" {
@@ -45,10 +45,10 @@ data "oci_core_subnet" "mgmt_gateway" {
   subnet_id = var.management_subnet_id
 }
 
-data "oci_core_subnet" "trust_gateway" {
-  subnet_id = var.trusted_subnet_id
+data "oci_core_subnet" "indoor_gateway" {
+  subnet_id = var.indoor_subnet_id
 }
 
-data "oci_core_subnet" "untrust_gateway" {
-  subnet_id = var.untrusted_subnet_id
+data "oci_core_subnet" "outdoor_gateway" {
+  subnet_id = var.outdoor_subnet_id
 }

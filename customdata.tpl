@@ -74,12 +74,14 @@ config router policy
         set src 0.0.0.0/0.0.0.0
         set dst 0.0.0.0/0.0.0.0
         set output-device port3
+        set gateway ${trusted_gateway_ip}
     next
     edit 2
         set input-device port3
         set src 0.0.0.0/0.0.0.0
         set dst 0.0.0.0/0.0.0.0
         set output-device port2
+        set gateway ${untrusted_gateway_ip}
     next
 end
 
